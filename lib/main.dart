@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app/add_quote.dart';
 import 'package:quotes_app/home_page.dart';
 import 'package:quotes_app/quote_page.dart';
 
-void main(){
+void main() {
   runApp(MyApp());
 }
 
@@ -20,8 +21,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       routes: {
-        "/":(context) => HomePage(),
-        "QuotePage":(context) => QuotePage(),
+        "/": (context) => HomePage(),
+        "QuotePage": (context) => QuotePage(),
+        "AddQuote": (context) => AddQuote(),
       },
     );
   }

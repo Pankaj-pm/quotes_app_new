@@ -36,11 +36,16 @@ class _HomePageState extends State<HomePage> {
               fillColor: Colors.grey.shade300,
               filled: true,
               prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-              ),
+              border: OutlineInputBorder(),
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: "Add",
+        onPressed: () {
+          Navigator.pushNamed(context, "AddQuote");
+        },
       ),
     );
   }
