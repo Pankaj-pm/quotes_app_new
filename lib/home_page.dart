@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:quotes_app/quote_model.dart';
+import 'package:quotes_app/util.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,6 +12,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Future.delayed(Duration(seconds: 2),() {
+
+      int index=Random().nextInt(quotesList.length);
+      QuoteModel quoteModel = QuoteModel.fromJson(quotesList[index]);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(quoteModel.author??"-"),
+            content: Text(quoteModel.text??""),
+          );
+        },
+      );
+    },);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +68,12 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         tooltip: "Add",
         onPressed: () {
-          Navigator.pushNamed(context, "AddQuote");
+          // bool random=Random().nextBool();
+
+
+          // print(random);
+          // print(randomInt);
+          // Navigator.pushNamed(context, "AddQuote");
         },
       ),
     );

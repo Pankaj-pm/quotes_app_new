@@ -11,17 +11,19 @@ class QuoteModel {
     this.author,
   });
 
-  factory QuoteModel.fromJson(Map<String, dynamic> json) => QuoteModel(
-    text: json["text"],
-    color: json["color"],
-    textColor: json["text_color"],
-    author: json["author"],
-  );
+  factory QuoteModel.fromJson(Map<String, dynamic> json) {
+    return QuoteModel(
+      text: json["text"],
+      color: json["color"],
+      textColor: json["text_color"],
+      author: json["author"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
-    "text": text,
-    "color": color,
-    "text_color": textColor,
-    "author": author,
-  };
+        "text": text,
+        "color": color,
+        "text_color": textColor,
+        "author": author,
+      };
 }

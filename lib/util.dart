@@ -21,6 +21,5 @@ List<Map<String, dynamic>> quotesList = [
     "text": "बिना दूरी तय किये हुए कही दूर आप नहीं पहुंच सकते।",
     "color": 0xffF12B2E,
     "text_color": 0xffffffff,
-    "author": "jayveer",
   },
 ];

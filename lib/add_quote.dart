@@ -46,67 +46,58 @@ class _AddQuoteState extends State<AddQuote> {
       },
       child: Scaffold(
         appBar: AppBar(),
-        body: Column(
-          children: [
-            getTextWidget("Apple", 60),
-            getTextWidget("new", 160),
-            getTextWidget("tax", 00),
-            getTextWidget("change", 00),
-            getTextWidget("Total", 220),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              TextFormField(
+                controller: textController,
+                decoration: InputDecoration(hintText: "Text"),
+              ),
+              TextFormField(
+                decoration: InputDecoration(hintText: "Color"),
+                controller: colorController,
+              ),
+              TextFormField(
+                controller: textColorController,
+                decoration: InputDecoration(hintText: "Text Color"),
+              ),
+              TextFormField(
+                controller: authorController,
+                decoration: InputDecoration(hintText: "Author"),
+              ),
+
+              ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text("Enter Detail"),
+                          content: Text("Add Quotes Detail"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  quotesList.add(
+                                    {
+                                      "text": textController.text,
+                                      "color": int.tryParse(colorController.text),
+                                      "text_color": int.tryParse(textColorController.text),
+                                      "author": authorController.text,
+                                    },
+                                  );
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Ok"))
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Text("Add"))
+            ],
+          ),
         ),
-        // body: Padding(
-        //   padding: const EdgeInsets.all(8.0),
-        //   child: Column(
-        //     children: [
-        //       TextFormField(
-        //         controller: textController,
-        //         decoration: InputDecoration(hintText: "Text"),
-        //       ),
-        //       TextFormField(
-        //         decoration: InputDecoration(hintText: "Color"),
-        //         controller: colorController,
-        //       ),
-        //       TextFormField(
-        //         controller: textColorController,
-        //         decoration: InputDecoration(hintText: "Text Color"),
-        //       ),
-        //       TextFormField(
-        //         controller: authorController,
-        //         decoration: InputDecoration(hintText: "Author"),
-        //       ),
-        //
-        //       ElevatedButton(
-        //           onPressed: () {
-        //             showDialog(
-        //               context: context,
-        //               builder: (context) {
-        //                 return AlertDialog(
-        //                   title: Text("Enter Detail"),
-        //                   content: Text("Add Quotes Detail"),
-        //                   actions: [
-        //                     TextButton(
-        //                         onPressed: () {
-        //                           quotesList.add(
-        //                             {
-        //                               "text": textController.text,
-        //                               "color": int.tryParse(colorController.text),
-        //                               "text_color": int.tryParse(textColorController.text),
-        //                               "author": authorController.text,
-        //                             },
-        //                           );
-        //                           Navigator.pop(context);
-        //                         },
-        //                         child: Text("Ok"))
-        //                   ],
-        //                 );
-        //               },
-        //             );
-        //           },
-        //           child: Text("Add"))
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }
@@ -127,5 +118,11 @@ class _AddQuoteState extends State<AddQuote> {
       return SizedBox.shrink();
     }
 
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    textController.dispose();
   }
 }
