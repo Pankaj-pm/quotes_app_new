@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quotes_app/add_quote.dart';
 import 'package:quotes_app/home_page.dart';
 import 'package:quotes_app/quote_page.dart';
+import 'package:quotes_app/quote_page_new.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         "home": (context) => HomePage(),
         "QuotePage": (context) => QuotePage(),
+        "QuotePageNew": (context) => QuotePageNew(),
         "AddQuote": (context) => AddQuote(),
       },
     );

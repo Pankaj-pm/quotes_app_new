@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
 
           // print(random);
           // print(randomInt);
-          // Navigator.pushNamed(context, "AddQuote");
+          Navigator.pushNamed(context, "QuotePageNew");
         },
       ),
     );
