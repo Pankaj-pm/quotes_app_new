@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/add_quote.dart';
+import 'package:quotes_app/detail_page.dart';
 import 'package:quotes_app/home_page.dart';
 import 'package:quotes_app/quote_page.dart';
 import 'package:quotes_app/quote_page_new.dart';
@@ -21,11 +22,17 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: "home",
+      theme: ThemeData(
+        fontFamily: "f1",
+        useMaterial3: true,
+
+      ),
       routes: {
         "home": (context) => HomePage(),
         "QuotePage": (context) => QuotePage(),
         "QuotePageNew": (context) => QuotePageNew(),
         "AddQuote": (context) => AddQuote(),
+        "DetailPage": (context) => DetailPage(),
       },
     );
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:quotes_app/detail_page.dart';
 import 'package:quotes_app/quote_model.dart';
 import 'package:quotes_app/util.dart';
 
@@ -16,6 +18,10 @@ class _QuotePageNewState extends State<QuotePageNew> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          "Detail",
+          style: GoogleFonts.dancingScript(),
+        ),
         actions: [
           Switch(
             value: isList,
@@ -30,12 +36,10 @@ class _QuotePageNewState extends State<QuotePageNew> {
           ),
           IconButton(
             onPressed: () {
-              isList=!isList;
-              setState(() {
-
-              });
+              isList = !isList;
+              setState(() {});
             },
-            icon: Icon(isList ?Icons.list : Icons.grid_on),
+            icon: Icon(isList ? Icons.list : Icons.grid_on),
           )
         ],
       ),
@@ -49,45 +53,55 @@ class MyListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: quotesList.length,
-      itemBuilder: (context, index) {
-        Map<String, dynamic> quotes = quotesList[index];
+    return ScrollbarTheme(
+      data: ScrollbarThemeData(
+          trackColor: MaterialStatePropertyAll(Colors.black), trackVisibility: MaterialStatePropertyAll(true)),
+      child: Scrollbar(
+        radius: Radius.circular(20),
+        child: ListView.separated(
+          itemCount: quotesList.length,
+          itemBuilder: (context, index) {
+            Map<String, dynamic> quotes = quotesList[index];
 
-        var quoteModel = QuoteModel.fromJson(quotes);
-        //1 = 4
-        //2 =4
-        // 3 =4-1
-        bool isLast = index == quotesList.length - 1;
-        //0==4-1
-        //1==4-1
-        //2==4-1
-        //3==4-1
+            var quoteModel = QuoteModel.fromJson(quotes);
+            //1 = 4
+            //2 =4
+            // 3 =4-1
+            bool isLast = index == quotesList.length - 1;
+            //0==4-1
+            //1==4-1
+            //2==4-1
+            //3==4-1
 
-        return Column(
-          children: [
-            Row(
+            return Column(
               children: [
-                CircleAvatar(child: Text("$index"), backgroundColor: Color(quoteModel.color ?? 0xff000000)),
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    child: Text(quoteModel.text ?? ""),
-                  ),
+                Row(
+                  children: [
+                    CircleAvatar(child: Text("$index"), backgroundColor: Color(quoteModel.color ?? 0xff000000)),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Text(
+                          quoteModel.text ?? "",
+                          style: TextStyle(fontFamily: quoteModel.fontName ?? "f1"),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+                // if (isLast==false)
+                //   Divider(
+                //     color: Colors.black,
+                //     thickness: 2,
+                //   )
               ],
-            ),
-            // if (isLast==false)
-            //   Divider(
-            //     color: Colors.black,
-            //     thickness: 2,
-            //   )
-          ],
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return Divider(color: Colors.black, thickness: 2);
-      },
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return Divider(color: Colors.black, thickness: 2);
+          },
+        ),
+      ),
     );
   }
 }
@@ -108,9 +122,19 @@ class MyGridView extends StatelessWidget {
       itemBuilder: (context, index) {
         var quotes = quotesList[index];
         var quoteModel = QuoteModel.fromJson(quotes);
-        return Container(
-          color: Color(quoteModel.color ?? 0xff000000),
-          child: Text(quoteModel.text ?? ""),
+        return InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, "DetailPage",arguments: quoteModel.text??"");
+
+
+            // Navigator.push(context, MaterialPageRoute(builder: (context) {
+            //   return DetailPage(text: quoteModel.text??"",);
+            // },));
+          },
+          child: Container(
+            color: Color(quoteModel.color ?? 0xff000000),
+            child: Text(quoteModel.text ?? ""),
+          ),
         );
       },
     );
