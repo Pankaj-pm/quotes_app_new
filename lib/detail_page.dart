@@ -1,4 +1,8 @@
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:quotes_app/util.dart';
 
 class DetailPage extends StatefulWidget {
@@ -19,6 +23,8 @@ class _DetailPageState extends State<DetailPage> {
   String? ff;
   double fontSize = 5;
 
+  GlobalKey key = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -36,27 +42,47 @@ class _DetailPageState extends State<DetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Detail Page"),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                RenderRepaintBoundary rrb = key.currentContext?.findRenderObject() as RenderRepaintBoundary;
+                var image = await rrb.toImage();
+                var pngImg = await image.toByteData(format: ImageByteFormat.png);
+                Uint8List? asUint8List = pngImg?.buffer.asUint8List();
+
+
+                print("asUint8List $asUint8List");
+                savedImg=asUint8List;
+                Navigator.pushNamed(context, "SaveImage");
+              },
+              icon: Icon(Icons.camera_alt))
+        ],
       ),
       body: Column(
         children: [
-          Container(
-            height: MediaQuery.sizeOf(context).width,
-            width: MediaQuery.sizeOf(context).width,
-            decoration: BoxDecoration(
-              color: bbColor ?? Colors.transparent,
-              image: DecorationImage(
-                  image: NetworkImage(
-                    bgImg ?? "",
+          RepaintBoundary(
+            key: key,
+            child: Container(
+              height: MediaQuery.sizeOf(context).width,
+              width: MediaQuery.sizeOf(context).width,
+              decoration: BoxDecoration(
+                color: bbColor ?? Colors.transparent,
+                image: (bgImg?.isNotEmpty ?? false)
+                    ? DecorationImage(
+                        image: NetworkImage(
+                          bgImg ?? "",
+                        ),
+                        fit: BoxFit.cover)
+                    : null,
+              ),
+              child: Center(
+                child: SelectableText(
+                  text ?? "",
+                  style: TextStyle(
+                    color: fontColor,
+                    fontFamily: ff,
+                    fontSize: fontSize,
                   ),
-                  fit: BoxFit.cover),
-            ),
-            child: Center(
-              child: Text(
-                text ?? "",
-                style: TextStyle(
-                  color: fontColor,
-                  fontFamily: ff,
-                  fontSize: fontSize,
                 ),
               ),
             ),

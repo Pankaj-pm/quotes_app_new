@@ -4,6 +4,7 @@ import 'package:quotes_app/detail_page.dart';
 import 'package:quotes_app/home_page.dart';
 import 'package:quotes_app/quote_page.dart';
 import 'package:quotes_app/quote_page_new.dart';
+import 'package:quotes_app/save_image.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +26,6 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         fontFamily: "f1",
         useMaterial3: true,
-
       ),
       routes: {
         "home": (context) => HomePage(),
@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
         "QuotePageNew": (context) => QuotePageNew(),
         "AddQuote": (context) => AddQuote(),
         "DetailPage": (context) => DetailPage(),
+        "SaveImage": (context) => SaveImage(),
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quotes_app/detail_page.dart';
 import 'package:quotes_app/quote_model.dart';
@@ -87,6 +88,11 @@ class MyListView extends StatelessWidget {
                         ),
                       ),
                     ),
+                    IconButton(
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: quoteModel.text ?? ""));
+                        },
+                        icon: Icon(Icons.copy))
                   ],
                 ),
                 // if (isLast==false)
@@ -124,8 +130,7 @@ class MyGridView extends StatelessWidget {
         var quoteModel = QuoteModel.fromJson(quotes);
         return InkWell(
           onTap: () {
-            Navigator.pushNamed(context, "DetailPage",arguments: quoteModel.text??"");
-
+            Navigator.pushNamed(context, "DetailPage", arguments: quoteModel.text ?? "");
 
             // Navigator.push(context, MaterialPageRoute(builder: (context) {
             //   return DetailPage(text: quoteModel.text??"",);
