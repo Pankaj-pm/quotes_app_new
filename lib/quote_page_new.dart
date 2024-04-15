@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quotes_app/detail_page.dart';
 import 'package:quotes_app/quote_model.dart';
 import 'package:quotes_app/util.dart';
+import 'package:share_plus/share_plus.dart';
 
 class QuotePageNew extends StatefulWidget {
   const QuotePageNew({super.key});
@@ -92,7 +93,13 @@ class MyListView extends StatelessWidget {
                         onPressed: () {
                           Clipboard.setData(ClipboardData(text: quoteModel.text ?? ""));
                         },
-                        icon: Icon(Icons.copy))
+                        icon: Icon(Icons.copy)),
+                    IconButton(
+                      onPressed: () {
+                        Share.share(quoteModel.text ?? "");
+                      },
+                      icon: Icon(Icons.share),
+                    )
                   ],
                 ),
                 // if (isLast==false)

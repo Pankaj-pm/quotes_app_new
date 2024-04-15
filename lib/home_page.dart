@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:quotes_app/quote_model.dart';
 import 'package:quotes_app/util.dart';
 
@@ -12,24 +14,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String? path;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Future.delayed(Duration(seconds: 2),() {
-
-      int index=Random().nextInt(quotesList.length);
-      QuoteModel quoteModel = QuoteModel.fromJson(quotesList[index]);
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(quoteModel.author??"-"),
-            content: Text(quoteModel.text??""),
-          );
-        },
-      );
-    },);
+    Future.delayed(
+      Duration(seconds: 2),
+      () {
+        int index = Random().nextInt(quotesList.length);
+        QuoteModel quoteModel = QuoteModel.fromJson(quotesList[index]);
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(quoteModel.author ?? "-"),
+              content: Text(quoteModel.text ?? ""),
+            );
+          },
+        );
+      },
+    );
+    getApplicationDocumentsDirectory().then((value) {
+      path = "${value.path}/harsh.png";
+      setState(() {});
+    });
   }
 
   @override
@@ -63,13 +72,13 @@ class _HomePageState extends State<HomePage> {
               border: OutlineInputBorder(),
             ),
           ),
+          if (path != null) Image.file(File(path ?? "")),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: "Add",
         onPressed: () {
           // bool random=Random().nextBool();
-
 
           // print(random);
           // print(randomInt);
